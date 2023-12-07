@@ -8,17 +8,29 @@
 import SwiftUI
 
 struct ContentView: View {
+    @StateObject var viewModel = MegasenaViewModel()
+    
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+            Button("Gerar Números") {
+                viewModel.generateRandomNumbers()
+            }
+            
+            Text("Números da Mega Sena:")
+            
+            HStack {
+                ForEach(viewModel.numbers, id: \.self) { number in
+                    Text("\(number)")
+                        .padding()
+                }
+            }
         }
         .padding()
     }
 }
 
-#Preview {
-    ContentView()
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
+    }
 }
