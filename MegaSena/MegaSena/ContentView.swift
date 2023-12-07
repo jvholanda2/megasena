@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct ContentView: View {
+    @StateObject var viewModel = MegasenaViewModel()
+    
     var body: some View {
         VStack {
             HStack {
@@ -17,23 +19,28 @@ struct ContentView: View {
                     .foregroundStyle(.tint)
             }
             .padding()
-            HStack(spacing: 10) {
-                ForEach(1...6, id: \.self) { _ in
-                    SquareView(number: getRandomNumber())
+            HStack {
+                Button(action: {viewModel.generateRandomNumbers()}, label: {
+                    Text("Gerar Números")
+                })
+            }            
+            .padding(8)
+            .background(Color.blue)
+            .foregroundColor(.white)
+            .cornerRadius(10)
+            Text("Números da Mega Sena:")
+            
+            HStack {
+                ForEach(viewModel.numbers, id: \.self) { number in
+                    SquareView(number: number)
                 }
             }
-            .padding()
-        }
-
         }
     }
-
-
-func getRandomNumber() -> Int {
-    // Substitua esta função por sua própria lógica para gerar números
-    return Int.random(in: 1...100)
 }
 
-#Preview {
-    ContentView()
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
+    }
 }

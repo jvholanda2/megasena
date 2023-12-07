@@ -11,13 +11,16 @@ struct SquareView: View {
     var number: Int
 
     var body: some View {
-        VStack {
+        ZStack {
             Rectangle()
-                .fill(Color.blue)
-                .frame(width: 50, height: 50)
+                .fill(Color.gray)
+                .frame(width: 40, height: 50)
             Text("\(number)")
                 .foregroundColor(.white)
         }
+        .background(Color.gray)
+        .foregroundColor(.white)
+        .cornerRadius(10)
     }
 }
 
